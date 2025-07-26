@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "3m7P3I6AATA=",
+  "dgSpecHash": "DL892ZGUUyU=",
   "success": true,
   "projectFilePath": "C:\\Users\\ASUS\\Documents\\PIPEJ2\\C#\\projectsNet\\GESTOR_TORNEOS\\GESTOR_TORNEOS.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\ASUS\\.nuget\\packages\\spectre.console\\0.50.0\\spectre.console.0.50.0.nupkg.sha512",
+    "C:\\Users\\ASUS\\.nuget\\packages\\system.memory\\4.6.3\\system.memory.4.6.3.nupkg.sha512"
+  ],
   "logs": []
 }

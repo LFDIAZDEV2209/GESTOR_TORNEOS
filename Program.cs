@@ -1,2 +1,11 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using liga.Menus;
+
+namespace liga;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        MainMenu.Show();
+    }
+}

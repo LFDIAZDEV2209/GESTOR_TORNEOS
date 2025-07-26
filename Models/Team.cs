@@ -6,7 +6,7 @@ public class Team
     public string? Name { get; set; }
     public string? City { get; set; }
     public List<Player> Players { get; set; } = new List<Player>();
-    public List<Staff> Staffs { get; set; } = new List<Staff>();
+    public List<TechnicalStaff> TechnicalStaffs { get; set; } = new List<TechnicalStaff>();
     public List<MedicalStaff> MedicalStaffs { get; set; } = new List<MedicalStaff>();
 
     public Team(int id, string? name, string? city)
@@ -23,5 +23,3 @@ public class Team
         return $"Team: {Name} - {City}";
     }
 }
-
-[[[], [], []], [[], [], []], [[], [], []]], [[[], [], []], [[], [], []], [[], [], []]], [[[], [], []], [[], [], []], [[], [], []]]
