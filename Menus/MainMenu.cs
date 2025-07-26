@@ -1,5 +1,5 @@
 using Spectre.Console;
-using System.Threading;
+using liga.Helpers;
 
 namespace liga.Menus;
 
@@ -34,38 +34,35 @@ public class MainMenu
             switch (selection[0])
             {
                 case '0':
-                    ShowLoading("Creando Torneo...");
+                    Console.Clear();
+                    ConsoleUtils.ShowLoading("Redireccionando al menu de torneos...");
+                    TournamentMenu.Show();
                     break;
                 case '1':
-                    ShowLoading("Registro de Equipos...");
+                    Console.Clear();
+                    ConsoleUtils.ShowLoading("Redireccionando al menu de equipos...");
                     break;
                 case '2':
-                    ShowLoading("Registro de Jugadores...");
+                    Console.Clear();
+                    ConsoleUtils.ShowLoading("Redireccionando al menu de jugadores...");
                     break;
                 case '3':
-                    ShowLoading("Transferencias (Compra, Préstamo)...");
+                    Console.Clear();
+                    ConsoleUtils.ShowLoading("Redireccionando al menu de transferencias...");
                     break;
                 case '4':
-                    ShowLoading("Estadísticas...");
+                    Console.Clear();
+                    ConsoleUtils.ShowLoading("Redireccionando al menu de estadisticas...");
                     break;
                 case '5':
-                    ShowLoading("Saliendo...");
+                    Console.Clear();
+                    ConsoleUtils.ShowLoading("Saliendo...");
                     return;
                 default:
                     AnsiConsole.MarkupLine("[bold red]Opción no válida[/]");
+                    Console.ReadKey();
                     break;
             }
         }
-    }
-
-    private static void ShowLoading(string mensaje)
-    {
-        AnsiConsole.Status()
-            .Spinner(Spinner.Known.Dots2)
-            .SpinnerStyle(Style.Parse("green"))
-            .Start(mensaje, ctx =>
-            {
-                Thread.Sleep(1200);
-            });
     }
 }
