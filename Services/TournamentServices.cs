@@ -34,9 +34,7 @@ public class AddTournament
 
         tournaments.Add(tournament);
 
-        ConsoleUtils.ShowLoading("Guardando torneo...");
-        AnsiConsole.MarkupLine($"[bold green]¡Torneo '{tournament.Name}' creado exitosamente![/]");
-        Thread.Sleep(900);
+        UserExperienceHelper.ShowSuccessAndRedirect($"¡Torneo '{tournament.Name}' creado exitosamente!");
     }
 }
 
@@ -71,11 +69,12 @@ public class FindTournament
 
                 if (tournamentById != null)
                 {
-                    AnsiConsole.MarkupLine($"[bold green]Torneo encontrado:[/] {tournamentById}");
+                    AnsiConsole.MarkupLine($"{tournamentById}");
+                    UserExperienceHelper.ShowInfoAndRedirect("Torneo encontrado.");
                 }
                 else
                 {
-                    AnsiConsole.MarkupLine("[bold red]Torneo no encontrado.[/]");
+                    UserExperienceHelper.ShowErrorAndRedirect("Torneo no encontrado.");
                 }
                 break;
             case '2':
@@ -84,25 +83,27 @@ public class FindTournament
 
                 if (tournamentByName != null)
                 {
-                    AnsiConsole.MarkupLine($"[bold green]Torneo encontrado:[/] {tournamentByName}");
+                    AnsiConsole.MarkupLine($"{tournamentByName}");
+                    UserExperienceHelper.ShowInfoAndRedirect("Torneo encontrado.");
                 }
                 else
                 {
-                    AnsiConsole.MarkupLine("[bold red]Torneo no encontrado.[/]");
+                    UserExperienceHelper.ShowErrorAndRedirect("Torneo no encontrado.");
                 }
                 break;
             case '3':
                 if (tournaments.Count == 0)
                 {
-                    AnsiConsole.MarkupLine("[bold red]No hay torneos registrados.[/]");
+                    UserExperienceHelper.ShowEmptyListAndRedirect();
                 }
                 else
                 {
-                    AnsiConsole.MarkupLine("[bold green]Torneos:[/]");
+                    MessageDisplayHelper.ShowInfo("Torneos:");
                     foreach (Tournament tournament in tournaments)
                     {
-                        AnsiConsole.MarkupLine($"[bold green]Torneo:[/] {tournament.Name} - {tournament.StartDate:yyyy-MM-dd} - {tournament.EndDate:yyyy-MM-dd}");
+                        AnsiConsole.MarkupLine($"[bold green]{tournament.Name} - {tournament.StartDate:yyyy-MM-dd} - {tournament.EndDate:yyyy-MM-dd}[/]");
                     }
+                    UserExperienceHelper.ShowInfoAndRedirect("Torneos mostrados.");
                 }
                 break;
             case '4':
@@ -126,15 +127,14 @@ public class DeleteTournament
 
         if (tournaments.Count == 0)
         {
-            AnsiConsole.MarkupLine("[bold red]No hay torneos registrados.[/]");
-            ConsoleUtils.ShowLoading("Redireccionando al menu principal...");
-            Thread.Sleep(900);
+            UserExperienceHelper.ShowEmptyListAndRedirect();
             return;
         }
 
+        MessageDisplayHelper.ShowInfo("Torneos:");
         foreach (Tournament tournament in tournaments)
         {
-            AnsiConsole.MarkupLine($"[bold green]Torneo:[/] {tournament.Id} - {tournament.Name}");
+            AnsiConsole.MarkupLine($"[bold green]{tournament.Id} - {tournament.Name}[/]");
         }
 
         int id = ValidateInt.AskInt("ID del torneo:");
@@ -143,15 +143,12 @@ public class DeleteTournament
         if (tournamentById != null)
         {
             tournaments.Remove(tournamentById);
-            AnsiConsole.MarkupLine($"[bold green]Torneo '{tournamentById.Name}' eliminado exitosamente![/]");
+            UserExperienceHelper.ShowSuccessAndRedirect($"Torneo '{tournamentById.Name}' eliminado exitosamente!");
         }
         else
         {
-            AnsiConsole.MarkupLine("[bold red]Torneo no encontrado.[/]");
+            UserExperienceHelper.ShowErrorAndRedirect("Torneo no encontrado.");
         }
-
-        ConsoleUtils.ShowLoading("Redireccionando al menu principal...");
-        Thread.Sleep(900);
     }
 }
 
@@ -168,15 +165,14 @@ public class UpdateTournament
 
         if (tournaments.Count == 0)
         {
-            AnsiConsole.MarkupLine("[bold red]No hay torneos registrados.[/]");
-            ConsoleUtils.ShowLoading("Redireccionando al menu principal...");
-            Thread.Sleep(900);
+            UserExperienceHelper.ShowEmptyListAndRedirect();
             return;
         }
 
+        MessageDisplayHelper.ShowInfo("Torneos:");
         foreach (Tournament tournament in tournaments)
         {
-            AnsiConsole.MarkupLine($"[bold green]Torneo:[/] {tournament.Id} - {tournament.Name}");
+            AnsiConsole.MarkupLine($"[bold green]{tournament.Id} - {tournament.Name}[/]");
         }
 
         int id = ValidateInt.AskInt("ID del torneo:");
@@ -195,14 +191,11 @@ public class UpdateTournament
             tournamentById.StartDate = startDate;
             tournamentById.EndDate = endDate;
 
-            AnsiConsole.MarkupLine($"[bold green]Torneo '{tournamentById.Name}' actualizado exitosamente![/]");
+            UserExperienceHelper.ShowSuccessAndRedirect($"Torneo '{tournamentById.Name}' actualizado exitosamente!");
         }
         else
         {
-            AnsiConsole.MarkupLine("[bold red]Torneo no encontrado.[/]");
+            UserExperienceHelper.ShowErrorAndRedirect("Torneo no encontrado.");
         }
-
-        ConsoleUtils.ShowLoading("Redireccionando al menu principal...");
-        Thread.Sleep(900);
     }
 }

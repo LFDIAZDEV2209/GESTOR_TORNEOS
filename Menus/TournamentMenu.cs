@@ -41,32 +41,27 @@ public class TournamentMenu
                     Console.Clear();
                     ConsoleUtils.ShowLoading("Preparando el formulario de nuevo torneo...");
                     AddTournament.Add(Program.tournaments);
-                    Console.ReadKey();
                     break;
                 case '1':
                     Console.Clear();
                     ConsoleUtils.ShowLoading("Iniciando el buscador de torneos...");
                     FindTournament.Find(Program.tournaments);
-                    Console.ReadKey();
                     break;
                 case '2':
                     Console.Clear();
                     ConsoleUtils.ShowLoading("Cargando torneos...");
                     DeleteTournament.Delete(Program.tournaments);
-                    Console.ReadKey();
                     break;
                 case '3':
                     Console.Clear();
                     ConsoleUtils.ShowLoading("Cargando torneos...");
                     UpdateTournament.Update(Program.tournaments);
-                    Console.ReadKey();
                     break;
                 case '4':
                     ConsoleUtils.ShowLoading("Redireccionando al menu principal...");
                     return;
                 default:
                     AnsiConsole.MarkupLine("[bold red]Opción no válida[/]");
-                    Console.ReadKey();
                     break;
             }
         }

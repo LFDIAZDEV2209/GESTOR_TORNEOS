@@ -61,7 +61,7 @@ public class MainMenu
                     return;
                 default:
                     AnsiConsole.MarkupLine("[bold red]Opción no válida[/]");
-                    Console.ReadKey();
+                    ScreenPause.Pause();
                     break;
             }
         }
