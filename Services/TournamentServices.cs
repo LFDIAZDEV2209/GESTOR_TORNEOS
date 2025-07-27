@@ -14,9 +14,9 @@ public class AddTournament
             .Color(Color.Yellow)
         );
 
-        string name = ValidateString.AskString("Nombre del torneo");
-        DateTime startDate = ValidateDate.AskDate("Fecha de inicio (yyyy-mm-dd)");
-        DateTime endDate = ValidateDate.AskDate("Fecha de fin (yyyy-mm-dd)");
+        string name = ValidateString.AskString("Nombre del torneo: ");
+        DateTime startDate = ValidateDate.AskDate("Fecha de inicio (yyyy-mm-dd): ");
+        DateTime endDate = ValidateDate.AskDate("Fecha de fin (yyyy-mm-dd): ");
 
         int newId = tournaments.Count > 0 ? tournaments.Max(t => t.Id) + 1 : 1;
 
@@ -61,7 +61,7 @@ public class FindTournament
         switch (typeFind[0])
         {
             case '1':
-                int id = ValidateInt.AskInt("ID del torneo");
+                int id = ValidateInt.AskInt("ID del torneo: ");
                 Tournament tournamentById = tournaments.FirstOrDefault(t => t.Id == id);
 
                 if (tournamentById != null)
@@ -75,7 +75,7 @@ public class FindTournament
                 }
                 break;
             case '2':
-                string name = ValidateString.AskString("Nombre del torneo");
+                string name = ValidateString.AskString("Nombre del torneo: ");
                 Tournament tournamentByName = tournaments.FirstOrDefault(t => t.Name == name);
 
                 if (tournamentByName != null)
@@ -92,7 +92,14 @@ public class FindTournament
                 AnsiConsole.MarkupLine("[bold green]Torneos:[/]");
                 foreach (Tournament tournament in tournaments)
                 {
-                    AnsiConsole.MarkupLine($"[bold green]Torneo:[/] {tournament.Name} - {tournament.StartDate} - {tournament.EndDate}");
+                    if (tournament != null)
+                    {
+                        AnsiConsole.MarkupLine($"[bold green]Torneo:[/] {tournament.Name} - {tournament.StartDate} - {tournament.EndDate}");
+                    }
+                    else
+                    {
+                        AnsiConsole.MarkupLine("[bold red]No hay torneos registrados.[/]");
+                    }
                 }
                 break;
             case '4':
@@ -100,5 +107,38 @@ public class FindTournament
                 Thread.Sleep(900);
                 break;
         }
+    }
+}
+
+public class DeleteTournament
+{
+    public static void Delete(List<Tournament> tournaments)
+    {
+        AnsiConsole.Write(
+            new FigletText("Eliminar Torneo")
+            .Centered()
+            .Color(Color.Yellow)
+        );
+
+        foreach (Tournament tournament in tournaments)
+        {
+            AnsiConsole.MarkupLine($"[bold green]Torneo:[/] {tournament.Id} - {tournament.Name}");
+        }
+
+        int id = ValidateInt.AskInt("ID del torneo: ");
+        Tournament tournamentById = tournaments.FirstOrDefault(t => t.Id == id);
+
+        if (tournament != null)
+        {
+            tournaments.Remove(tournament);
+            AnsiConsole.MarkupLine($"[bold green]Torneo '{tournament.Name}' eliminado exitosamente![/]");
+        }
+        else
+        {
+            AnsiConsole.MarkupLine("[bold red]Torneo no encontrado.[/]");
+        }
+
+        ConsoleUtils.ShowLoading("Redireccionando al menu principal...");
+        Thread.Sleep(900);
     }
 }

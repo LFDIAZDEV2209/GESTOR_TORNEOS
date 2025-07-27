@@ -51,6 +51,7 @@ public class TournamentMenu
                 case '2':
                     Console.Clear();
                     ConsoleUtils.ShowLoading("Cargando torneos...");
+                    DeleteTournament.Delete(Program.tournaments);
                     Console.ReadKey();
                     break;
                 case '3':
