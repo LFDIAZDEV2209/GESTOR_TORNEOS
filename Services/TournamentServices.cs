@@ -128,10 +128,50 @@ public class DeleteTournament
         int id = ValidateInt.AskInt("ID del torneo: ");
         Tournament tournamentById = tournaments.FirstOrDefault(t => t.Id == id);
 
-        if (tournament != null)
+        if (tournamentById != null)
         {
-            tournaments.Remove(tournament);
-            AnsiConsole.MarkupLine($"[bold green]Torneo '{tournament.Name}' eliminado exitosamente![/]");
+            tournaments.Remove(tournamentById);
+            AnsiConsole.MarkupLine($"[bold green]Torneo '{tournamentById.Name}' eliminado exitosamente![/]");
+        }
+        else
+        {
+            AnsiConsole.MarkupLine("[bold red]Torneo no encontrado.[/]");
+        }
+
+        ConsoleUtils.ShowLoading("Redireccionando al menu principal...");
+        Thread.Sleep(900);
+    }
+}
+
+public class UpdateTournament
+{
+    public static void Update(List<Tournament> tournaments)
+    {
+        AnsiConsole.Write(
+            new FigletText("Actualizar Torneo")
+            .Centered()
+            .Color(Color.Yellow)
+        );
+
+        foreach (Tournament tournament in tournaments)
+        {
+            AnsiConsole.MarkupLine($"[bold green]Torneo:[/] {tournament.Id} - {tournament.Name}");
+        }
+
+        int id = ValidateInt.AskInt("ID del torneo: ");
+        Tournament tournamentById = tournaments.FirstOrDefault(t => t.Id == id);
+
+        if (tournamentById != null)
+        {
+            string name = ValidateString.AskString("Nombre del torneo: ");
+            DateTime startDate = ValidateDate.AskDate("Fecha de inicio (yyyy-mm-dd): ");
+            DateTime endDate = ValidateDate.AskDate("Fecha de fin (yyyy-mm-dd): ");
+
+            tournamentById.Name = name;
+            tournamentById.StartDate = startDate;
+            tournamentById.EndDate = endDate;
+
+            AnsiConsole.MarkupLine($"[bold green]Torneo '{tournamentById.Name}' actualizado exitosamente![/]");
         }
         else
         {

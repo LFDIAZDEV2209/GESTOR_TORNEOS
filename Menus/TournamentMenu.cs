@@ -57,6 +57,7 @@ public class TournamentMenu
                 case '3':
                     Console.Clear();
                     ConsoleUtils.ShowLoading("Cargando torneos...");
+                    UpdateTournament.Update(Program.tournaments);
                     Console.ReadKey();
                     break;
                 case '4':
