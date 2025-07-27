@@ -2,6 +2,7 @@ using Spectre.Console;
 using liga.Models;
 using System.Threading;
 using liga.Helpers;
+using liga.Services.TournamentServices;
 
 namespace liga.Menus;
 
@@ -38,6 +39,7 @@ public class TournamentMenu
                 case '0':
                     Console.Clear();
                     ConsoleUtils.ShowLoading("Preparando el formulario de nuevo torneo...");
+                    AddTournament.Add(Program.tournaments);
                     break;
                 case '1':
                     Console.Clear();
