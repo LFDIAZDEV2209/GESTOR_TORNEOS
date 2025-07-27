@@ -40,18 +40,23 @@ public class TournamentMenu
                     Console.Clear();
                     ConsoleUtils.ShowLoading("Preparando el formulario de nuevo torneo...");
                     AddTournament.Add(Program.tournaments);
+                    Console.ReadKey();
                     break;
                 case '1':
                     Console.Clear();
                     ConsoleUtils.ShowLoading("Iniciando el buscador de torneos...");
+                    FindTournament.Find(Program.tournaments);
+                    Console.ReadKey();
                     break;
                 case '2':
                     Console.Clear();
                     ConsoleUtils.ShowLoading("Cargando torneos...");
+                    Console.ReadKey();
                     break;
                 case '3':
                     Console.Clear();
                     ConsoleUtils.ShowLoading("Cargando torneos...");
+                    Console.ReadKey();
                     break;
                 case '4':
                     ConsoleUtils.ShowLoading("Redireccionando al menu principal...");

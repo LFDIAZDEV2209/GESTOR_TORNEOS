@@ -32,3 +32,18 @@ public class ValidateString
         }
     }
 }
+
+public class ValidateInt
+{
+    public static int AskInt(string prompt)
+    {
+        while (true)
+        {
+            string input = AnsiConsole.Ask<string>($"[blue]{prompt}[/]");
+            if (int.TryParse(input, out int number))
+                return number;
+
+            AnsiConsole.MarkupLine("[red]El valor ingresado no es un número entero. Intente de nuevo.[/]");
+        }
+    }
+}
