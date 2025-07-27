@@ -3,6 +3,7 @@ using liga.Helpers;
 
 namespace liga.Menus;
 
+// Responsabilidad: Mostrar el menu principal
 public class MainMenu
 {
     public static void Show()

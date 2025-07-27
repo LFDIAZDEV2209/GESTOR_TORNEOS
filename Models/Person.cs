@@ -1,5 +1,6 @@
 namespace liga.Models;
 
+// Responsabilidad: Modelo de persona
 public class Person 
 {
     public int Id { get; set; }

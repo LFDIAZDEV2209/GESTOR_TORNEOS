@@ -1,8 +1,15 @@
-﻿using liga.Menus;
+﻿/*
+    Autor: Luis Felipe Diaz
+    Fecha: 2025-07-25
+    Descripción: Programa para gestionar torneos de fútbol
+*/
+
+using liga.Menus;
 using liga.Models;
 
 namespace liga;
 
+// Responsabilidad: Punto de entrada del programa
 class Program
 {
     public static List<Tournament> tournaments = new List<Tournament>();

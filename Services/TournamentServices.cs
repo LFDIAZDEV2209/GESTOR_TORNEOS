@@ -4,6 +4,7 @@ using liga.Helpers;
 
 namespace liga.Services.TournamentServices;
 
+// Responsabilidad: Servicio de torneos
 public class AddTournament
 {
     public static void Add(List<Tournament> tournaments)
@@ -39,6 +40,7 @@ public class AddTournament
     }
 }
 
+// Responsabilidad: Servicio de busqueda de torneos
 public class FindTournament
 {
     public static void Find(List<Tournament> tournaments)
@@ -111,6 +113,7 @@ public class FindTournament
     }
 }
 
+// Responsabilidad: Servicio de eliminacion de torneos
 public class DeleteTournament
 {
     public static void Delete(List<Tournament> tournaments)
@@ -152,6 +155,7 @@ public class DeleteTournament
     }
 }
 
+// Responsabilidad: Servicio de actualizacion de torneos
 public class UpdateTournament
 {
     public static void Update(List<Tournament> tournaments)

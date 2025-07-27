@@ -6,6 +6,7 @@ using liga.Services.TournamentServices;
 
 namespace liga.Menus;
 
+// Responsabilidad: Mostrar el menu de torneos
 public class TournamentMenu
 {
     public static void Show()

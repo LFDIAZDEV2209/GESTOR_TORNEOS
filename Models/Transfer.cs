@@ -1,5 +1,6 @@
 namespace liga.Models;
 
+// Responsabilidad: Modelo de transferencia
 public class Transfer
 {
     public int Id { get; set; }

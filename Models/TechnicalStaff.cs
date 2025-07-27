@@ -1,5 +1,6 @@
 namespace liga.Models;
 
+// Responsabilidad: Modelo de personal tecnico
 public class TechnicalStaff : Person
 {
     public string? Role { get; set; }

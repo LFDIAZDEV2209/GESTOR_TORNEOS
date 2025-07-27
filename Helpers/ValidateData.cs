@@ -6,6 +6,7 @@ namespace liga.Helpers;
 // Responsabilidad: Validar formato de fechas
 public class ValidateDate
 {
+    // Responsabilidad: Validar fechas ingresadas
     public static DateTime AskDate(string prompt)
     {
         while (true)
@@ -22,6 +23,7 @@ public class ValidateDate
 // Responsabilidad: Validar reglas de negocio para rangos de fechas
 public class DateRangeValidator
 {
+    // Responsabilidad: Validar fecha de inicio
     public static bool IsValidStartDate(DateTime startDate)
     {
         if (startDate < DateTime.Today)
@@ -32,6 +34,7 @@ public class DateRangeValidator
         return true;
     }
 
+    // Responsabilidad: Validar fecha de fin
     public static bool IsValidEndDate(DateTime endDate, DateTime startDate)
     {
         if (endDate < startDate)
@@ -42,6 +45,7 @@ public class DateRangeValidator
         return true;
     }
 
+    // Responsabilidad: Validar rango de fechas
     public static bool IsValidDateRange(DateTime startDate, DateTime endDate)
     {
         return IsValidStartDate(startDate) && IsValidEndDate(endDate, startDate);
@@ -71,6 +75,7 @@ public class DateInputHelper
     }
 }
 
+// Responsabilidad: Validar cadenas de texto
 public class ValidateString
 {
     public static string AskString(string prompt)
@@ -86,6 +91,7 @@ public class ValidateString
     }
 }
 
+// Responsabilidad: Validar enteros
 public class ValidateInt
 {
     public static int AskInt(string prompt)

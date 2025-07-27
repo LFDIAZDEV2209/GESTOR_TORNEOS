@@ -3,6 +3,7 @@ using System.Threading;
 
 namespace liga.Helpers;
 
+// Responsabilidad: Mostrar mensajes de carga
 public static class ConsoleUtils
 {
     public static void ShowLoading(string mensaje, int milisegundos = 1200)

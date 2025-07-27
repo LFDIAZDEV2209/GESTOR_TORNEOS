@@ -1,5 +1,6 @@
 namespace liga.Models;
 
+// Responsabilidad: Modelo de equipo
 public class Team
 {
     public int Id { get; set; }

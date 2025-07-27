@@ -1,5 +1,6 @@
 namespace liga.Models;
 
+// Responsabilidad: Modelo de personal medico
 public class MedicalStaff : Person
 {
     public string? Speciality { get; set; }

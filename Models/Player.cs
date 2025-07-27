@@ -1,5 +1,6 @@
 namespace liga.Models;
 
+// Responsabilidad: Modelo de jugador
 public class Player : Person
 {
     public int Dorsal { get; set; }

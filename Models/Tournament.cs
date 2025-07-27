@@ -1,5 +1,6 @@
 namespace liga.Models;
 
+// Responsabilidad: Modelo de torneo
 public class Tournament
 {
     public int Id { get; set; }
