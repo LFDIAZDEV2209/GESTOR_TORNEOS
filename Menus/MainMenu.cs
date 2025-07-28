@@ -42,10 +42,12 @@ public class MainMenu
                 case '1':
                     Console.Clear();
                     ConsoleUtils.ShowLoading("Redireccionando al menu de equipos...");
+                    TeamMenu.Show();
                     break;
                 case '2':
                     Console.Clear();
                     ConsoleUtils.ShowLoading("Redireccionando al menu de jugadores...");
+                    PlayerMenu.Show();
                     break;
                 case '3':
                     Console.Clear();

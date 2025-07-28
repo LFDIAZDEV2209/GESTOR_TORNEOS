@@ -44,17 +44,17 @@ public class TeamMenu
                     break;
                 case '1':
                     Console.Clear();
-                    ConsoleUtils.ShowLoading("Preparando el formulario de nuevo cuerpo tecnico...");
+                    ConsoleUtils.ShowLoading("Cargando Equipos...");
                     AddTechnicalStaff.Add();
                     break;
                 case '2':
                     Console.Clear();
-                    ConsoleUtils.ShowLoading("Preparando el formulario de nuevo cuerpo medico...");
+                    ConsoleUtils.ShowLoading("Cargando Equipos...");
                     AddMedicalStaff.Add();
                     break;
                 case '3':
                     Console.Clear();
-                    ConsoleUtils.ShowLoading("Preparando el formulario de inscripcion de torneo...");
+                    ConsoleUtils.ShowLoading("Cargando Equipos...");
                     InscribeTournament.Inscribe();
                     break;
                 case '4':
@@ -64,7 +64,7 @@ public class TeamMenu
                     break;
                 case '5':
                     Console.Clear();
-                    ConsoleUtils.ShowLoading("Preparando el formulario de salida de torneo...");
+                    ConsoleUtils.ShowLoading("Cargando Equipos...");
                     ExitTournament.Exit();
                     break;
                 case '6':
