@@ -48,7 +48,7 @@ public class TransferMenu
                     return;
                 default:
                     Console.Clear();
-                    ConsoleUtils.ShowErrorAndRedirect("Opción no válida.", "Intentelo nuevamente.");
+                    UserExperienceHelper.ShowErrorAndRedirect("Opción no válida.", "Intentelo nuevamente.");
                     break;
             }
         }
