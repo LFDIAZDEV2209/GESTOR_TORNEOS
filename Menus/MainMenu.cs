@@ -57,6 +57,7 @@ public class MainMenu
                 case '4':
                     Console.Clear();
                     ConsoleUtils.ShowLoading("Redireccionando al menu de estadisticas...");
+                    StatsMenu.Show();
                     break;
                 case '5':
                     Console.Clear();
