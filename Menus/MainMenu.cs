@@ -52,6 +52,7 @@ public class MainMenu
                 case '3':
                     Console.Clear();
                     ConsoleUtils.ShowLoading("Redireccionando al menu de transferencias...");
+                    TransferMenu.Show();
                     break;
                 case '4':
                     Console.Clear();
