@@ -114,9 +114,9 @@ public class InscribeTournament
         }
 
         int teamId = ValidateInt.AskInt("ID del equipo a inscribir: ");
-        Team? team = Program.teams.FirstOrDefault(t => t.Id == teamId);
+        Team? selectedTeam = Program.teams.FirstOrDefault(t => t.Id == teamId);
 
-        if (team == null)
+        if (selectedTeam == null)
         {
             UserExperienceHelper.ShowErrorAndRedirect("Equipo no encontrado.");
             return;
@@ -130,17 +130,17 @@ public class InscribeTournament
         }
 
         int tournamentId = ValidateInt.AskInt("ID del torneo a inscribir: ");
-        Tournament? tournament = Program.tournaments.FirstOrDefault(t => t.Id == tournamentId);
+        Tournament? selectedTournament = Program.tournaments.FirstOrDefault(t => t.Id == tournamentId);
 
-        if (tournament == null)
+        if (selectedTournament == null)
         {
             UserExperienceHelper.ShowErrorAndRedirect("Torneo no encontrado.");
             return;
         }
 
-        tournament.Teams.Add(team);
+        selectedTournament.Teams.Add(selectedTeam);
 
-        UserExperienceHelper.ShowSuccessAndRedirect($"¡Equipo '{team.Name}' inscrito en el torneo '{tournament.Name}' exitosamente!");
+        UserExperienceHelper.ShowSuccessAndRedirect($"¡Equipo '{selectedTeam.Name}' inscrito en el torneo '{selectedTournament.Name}' exitosamente!");
     }
 }
 
@@ -162,9 +162,9 @@ public class TransferNotification
         }
 
         int teamId = ValidateInt.AskInt("ID del equipo a notificar: ");
-        Team? team = Program.teams.FirstOrDefault(t => t.Id == teamId);
+        Team? selectedTeam = Program.teams.FirstOrDefault(t => t.Id == teamId);
 
-        if (team == null)
+        if (selectedTeam == null)
         {
             UserExperienceHelper.ShowErrorAndRedirect("Equipo no encontrado.");
             return;
@@ -174,9 +174,9 @@ public class TransferNotification
 
         foreach (Transfer transfer in Program.transfers)
         {
-            if (transfer.Team.Id == teamId)
+            if (transfer.FromTeam?.Id == teamId || transfer.ToTeam?.Id == teamId)
             {
-                AnsiConsole.MarkupLine($"[bold green]{transfer.Id} - {transfer.Player.Name} - {transfer.Player.Team.Name} - {transfer.Player.Team.City}[/]");
+                AnsiConsole.MarkupLine($"[bold green]{transfer.Id} - {transfer.Player?.Name} - {transfer.FromTeam?.Name} -> {transfer.ToTeam?.Name}[/]");
             }
         }
 
@@ -202,9 +202,9 @@ public class ExitTournament
         }
 
         int teamId = ValidateInt.AskInt("ID del equipo a salir: ");
-        Team? team = Program.teams.FirstOrDefault(t => t.Id == teamId);
+        Team? selectedTeam = Program.teams.FirstOrDefault(t => t.Id == teamId);
 
-        if (team == null)
+        if (selectedTeam == null)
         {
             UserExperienceHelper.ShowErrorAndRedirect("Equipo no encontrado.");
             return;
@@ -214,23 +214,23 @@ public class ExitTournament
 
         foreach (Tournament tournament in Program.tournaments)
         {
-            if (tournament.Teams.Contains(team))
+            if (tournament.Teams.Contains(selectedTeam))
             {
                 AnsiConsole.MarkupLine($"[bold green]{tournament.Id} - {tournament.Name}[/]");
             }
         }
 
         int tournamentId = ValidateInt.AskInt("ID del torneo a salir: ");
-        Tournament? tournament = Program.tournaments.FirstOrDefault(t => t.Id == tournamentId);
+        Tournament? selectedTournament = Program.tournaments.FirstOrDefault(t => t.Id == tournamentId);
 
-        if (tournament == null)
+        if (selectedTournament == null)
         {
             UserExperienceHelper.ShowErrorAndRedirect("Torneo no encontrado.");
             return;
         }
 
-        tournament.Teams.Remove(team);
+        selectedTournament.Teams.Remove(selectedTeam);
 
-        UserExperienceHelper.ShowSuccessAndRedirect($"¡Equipo '{team.Name}' salido del torneo '{tournament.Name}' exitosamente!");
+        UserExperienceHelper.ShowSuccessAndRedirect($"¡Equipo '{selectedTeam.Name}' salido del torneo '{selectedTournament.Name}' exitosamente!");
     }
 }
