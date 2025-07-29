@@ -14,6 +14,11 @@ class Program
 {
     public static List<Tournament> tournaments = new List<Tournament>();
 
+    public static List<Team> teams = new List<Team>();
+    public static List<Player> players = new List<Player>();
+    public static List<TechnicalStaff> technicalStaff = new List<TechnicalStaff>();
+    public static List<Transfer> transfers = new List<Transfer>();
+
     static void Main(string[] args)
     {
         MainMenu.Show();

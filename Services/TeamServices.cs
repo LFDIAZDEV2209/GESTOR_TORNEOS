@@ -14,8 +14,21 @@ public class AddTeam
             .Color(Color.Yellow)
         );
 
-        MessageDisplayHelper.ShowInfo("Aqui ira la logica para registrar un nuevo equipo.");
-        ScreenPause.Pause();
+        string name = ValidateString.AskString("Nombre del equipo: ");
+        string city = ValidateString.AskString("Ciudad del equipo: ");
+
+        int newId = Program.teams.Count > 0 ? Program.teams.Max(t => t.Id) + 1 : 1;
+
+        Team team = new Team
+        {
+            Id = newId,
+            Name = name,
+            City = city
+        };
+
+        Program.teams.Add(team);
+
+        UserExperienceHelper.ShowSuccessAndRedirect($"¡Equipo '{team.Name}' de {team.City} creado exitosamente!");
     }
 }
 
@@ -29,8 +42,25 @@ public class AddTechnicalStaff
             .Color(Color.Yellow)
         );
 
-        MessageDisplayHelper.ShowInfo("Aqui ira la logica para registrar un nuevo cuerpo tecnico.");
-        ScreenPause.Pause();
+        string name = ValidateString.AskString("Nombre del cuerpo tecnico: ");
+        string origen = ValidateString.AskString("Origen del cuerpo tecnico: ");
+        string email = ValidateString.AskString("Email del cuerpo tecnico: ");
+        string role = ValidateString.AskString("Rol del cuerpo tecnico: ");
+
+        int newId = Program.technicalStaff.Count > 0 ? Program.technicalStaff.Max(t => t.Id) + 1 : 1;
+        
+        TechnicalStaff technicalStaff = new TechnicalStaff
+        {
+            Id = newId,
+            Name = name,
+            Origen = origen,
+            Email = email,
+            Role = role
+        };
+
+        Program.technicalStaff.Add(technicalStaff);
+
+        UserExperienceHelper.ShowSuccessAndRedirect($"¡Cuerpo tecnico '{technicalStaff.Name}' creado exitosamente!");
     }
 }
 
@@ -44,8 +74,25 @@ public class AddMedicalStaff
             .Color(Color.Yellow)
         );
 
-        MessageDisplayHelper.ShowInfo("Aqui ira la logica para registrar un nuevo cuerpo medico.");
-        ScreenPause.Pause();
+        string name = ValidateString.AskString("Nombre del cuerpo medico: ");
+        string origen = ValidateString.AskString("Origen del cuerpo medico: ");
+        string email = ValidateString.AskString("Email del cuerpo medico: ");
+        string speciality = ValidateString.AskString("Especialidad del cuerpo medico: ");
+
+        int newId = Program.medicalStaff.Count > 0 ? Program.medicalStaff.Max(t => t.Id) + 1 : 1;
+
+        MedicalStaff medicalStaff = new MedicalStaff
+        {
+            Id = newId,
+            Name = name,
+            Origen = origen,
+            Email = email,
+            Speciality = speciality
+        };
+
+        Program.medicalStaff.Add(medicalStaff);
+
+        UserExperienceHelper.ShowSuccessAndRedirect($"¡Cuerpo medico '{medicalStaff.Name}' creado exitosamente!");
     }
 }
 
@@ -59,8 +106,41 @@ public class InscribeTournament
             .Color(Color.Yellow)
         );
 
-        MessageDisplayHelper.ShowInfo("Aqui ira la logica para inscribir un equipo en un torneo.");
-        ScreenPause.Pause();
+        MessageDisplayHelper.ShowInfo("Equipos:");
+
+        foreach (Team team in Program.teams)
+        {
+            AnsiConsole.MarkupLine($"[bold green]{team.Id} - {team.Name}[/]");
+        }
+
+        int teamId = ValidateInt.AskInt("ID del equipo a inscribir: ");
+        Team? team = Program.teams.FirstOrDefault(t => t.Id == teamId);
+
+        if (team == null)
+        {
+            UserExperienceHelper.ShowErrorAndRedirect("Equipo no encontrado.");
+            return;
+        }
+
+        MessageDisplayHelper.ShowInfo("Torneos:");
+
+        foreach (Tournament tournament in Program.tournaments)
+        {
+            AnsiConsole.MarkupLine($"[bold green]{tournament.Id} - {tournament.Name}[/]");
+        }
+
+        int tournamentId = ValidateInt.AskInt("ID del torneo a inscribir: ");
+        Tournament? tournament = Program.tournaments.FirstOrDefault(t => t.Id == tournamentId);
+
+        if (tournament == null)
+        {
+            UserExperienceHelper.ShowErrorAndRedirect("Torneo no encontrado.");
+            return;
+        }
+
+        tournament.Teams.Add(team);
+
+        UserExperienceHelper.ShowSuccessAndRedirect($"¡Equipo '{team.Name}' inscrito en el torneo '{tournament.Name}' exitosamente!");
     }
 }
 
@@ -74,8 +154,33 @@ public class TransferNotification
             .Color(Color.Yellow)
         );
 
-        MessageDisplayHelper.ShowInfo("Aqui ira la logica para enviar una notificacion de transferencia.");
-        ScreenPause.Pause();
+        MessageDisplayHelper.ShowInfo("Equipos:");
+
+        foreach (Team team in Program.teams)
+        {
+            AnsiConsole.MarkupLine($"[bold green]{team.Id} - {team.Name} - {team.City}[/]");
+        }
+
+        int teamId = ValidateInt.AskInt("ID del equipo a notificar: ");
+        Team? team = Program.teams.FirstOrDefault(t => t.Id == teamId);
+
+        if (team == null)
+        {
+            UserExperienceHelper.ShowErrorAndRedirect("Equipo no encontrado.");
+            return;
+        }
+
+        MessageDisplayHelper.ShowInfo("Transferencias del equipo:");
+
+        foreach (Transfer transfer in Program.transfers)
+        {
+            if (transfer.Team.Id == teamId)
+            {
+                AnsiConsole.MarkupLine($"[bold green]{transfer.Id} - {transfer.Player.Name} - {transfer.Player.Team.Name} - {transfer.Player.Team.City}[/]");
+            }
+        }
+
+        UserExperienceHelper.ShowSuccessAndRedirect($"Redireccionando al menu principal...");
     }
 }
 
@@ -89,7 +194,43 @@ public class ExitTournament
             .Color(Color.Yellow)
         );
 
-        MessageDisplayHelper.ShowInfo("Aqui ira la logica para salir de un torneo.");
-        ScreenPause.Pause();
+        MessageDisplayHelper.ShowInfo("Equipos:");
+
+        foreach (Team team in Program.teams)
+        {
+            AnsiConsole.MarkupLine($"[bold green]{team.Id} - {team.Name} - {team.City}[/]");
+        }
+
+        int teamId = ValidateInt.AskInt("ID del equipo a salir: ");
+        Team? team = Program.teams.FirstOrDefault(t => t.Id == teamId);
+
+        if (team == null)
+        {
+            UserExperienceHelper.ShowErrorAndRedirect("Equipo no encontrado.");
+            return;
+        }
+
+        MessageDisplayHelper.ShowInfo("Torneos donde participa el equipo:");
+
+        foreach (Tournament tournament in Program.tournaments)
+        {
+            if (tournament.Teams.Contains(team))
+            {
+                AnsiConsole.MarkupLine($"[bold green]{tournament.Id} - {tournament.Name}[/]");
+            }
+        }
+
+        int tournamentId = ValidateInt.AskInt("ID del torneo a salir: ");
+        Tournament? tournament = Program.tournaments.FirstOrDefault(t => t.Id == tournamentId);
+
+        if (tournament == null)
+        {
+            UserExperienceHelper.ShowErrorAndRedirect("Torneo no encontrado.");
+            return;
+        }
+
+        tournament.Teams.Remove(team);
+
+        UserExperienceHelper.ShowSuccessAndRedirect($"¡Equipo '{team.Name}' salido del torneo '{tournament.Name}' exitosamente!");
     }
 }
