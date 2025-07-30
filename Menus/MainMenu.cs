@@ -1,13 +1,25 @@
 using Spectre.Console;
 using liga.Helpers;
+using liga.Application.Services;
+using liga.Application.UI;
+using liga.Domain.Factory;
+using liga.Infrastructure.Mysql;
 
 namespace liga.Menus;
 
 // Responsabilidad: Mostrar el menu principal
 public class MainMenu
 {
+    private static TournamentUI? _tournamentUI;
+
     public static void Show()
     {
+        // Configurar la arquitectura hexagonal para torneos
+        IDbFactory factory = new TournamentDbFactory();
+        var tournamentRepository = factory.CrearTournamentRepository();
+        var tournamentService = new TournamentService(tournamentRepository);
+        _tournamentUI = new TournamentUI(tournamentService);
+
         while (true)
         {
             Console.Clear();
@@ -37,7 +49,7 @@ public class MainMenu
                 case '0':
                     Console.Clear();
                     ConsoleUtils.ShowLoading("Redireccionando al menu de torneos...");
-                    TournamentMenu.Show();
+                    _tournamentUI?.MostrarMenu();
                     break;
                 case '1':
                     Console.Clear();
