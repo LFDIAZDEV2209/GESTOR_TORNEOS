@@ -8,7 +8,7 @@ public class TournamentRepository : ITournamentRepository
 {
     public List<Tournament> ObtenerTodos()
     {
-        // Convertir de liga.Models.Tournament a liga.Domain.Entities.Tournament
+        // Convertir de Program.tournaments a liga.Domain.Entities.Tournament
         return Program.tournaments.Select(t => new Tournament
         {
             Id = t.Id,
@@ -40,15 +40,9 @@ public class TournamentRepository : ITournamentRepository
             ? Program.tournaments.Max(t => t.Id) + 1 
             : 1;
 
-        // Convertir a liga.Models.Tournament y agregar a Program.tournaments
-        var newTournament = new liga.Models.Tournament(
-            nextId,  // ✅ ID AUTOINCREMENTAL
-            tournament.Name, 
-            tournament.StartDate, 
-            tournament.EndDate
-        );
-        // Teams se agregará cuando migremos Team
-        Program.tournaments.Add(newTournament);
+        // Asignar ID y agregar a Program.tournaments
+        tournament.Id = nextId; // ✅ ID AUTOINCREMENTAL
+        Program.tournaments.Add(tournament);
     }
 
     public void Eliminar(int id)

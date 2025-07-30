@@ -9,10 +9,12 @@ namespace liga.Application.UI;
 public class TeamUI
 {
     private readonly TeamService _teamService;
+    private readonly TournamentService _tournamentService;
 
-    public TeamUI(TeamService teamService)
+    public TeamUI(TeamService teamService, TournamentService tournamentService)
     {
         _teamService = teamService;
+        _tournamentService = tournamentService;
     }
 
     public void MostrarMenu()
@@ -185,6 +187,14 @@ public class TeamUI
             .Color(Color.Blue)
         );
 
+        var torneos = _tournamentService.ObtenerTodos();
+
+        if (torneos.Count == 0)
+        {
+            UserExperienceHelper.ShowEmptyListAndRedirect();
+            return;
+        }
+
         var equipos = _teamService.ObtenerTodos();
 
         if (equipos.Count == 0)
@@ -208,8 +218,24 @@ public class TeamUI
             return;
         }
 
-        // TODO: Mostrar torneos disponibles y permitir inscripción
-        UserExperienceHelper.ShowSuccessAndRedirect($"¡Equipo '{equipoSeleccionado.Name}' inscrito al torneo!");
+        MessageDisplayHelper.ShowInfo("Torneos disponibles:");
+        foreach (Tournament torneo in torneos)
+        {
+            AnsiConsole.MarkupLine($"[bold green]{torneo.Id} - {torneo.Name} ({torneo.StartDate:dd/MM/yyyy} - {torneo.EndDate:dd/MM/yyyy})[/]");
+        }
+
+        int idTorneo = ValidateInt.AskInt("ID del torneo: ");
+        Tournament? torneoSeleccionado = torneos.FirstOrDefault(t => t.Id == idTorneo);
+
+        if (torneoSeleccionado == null)
+        {
+            UserExperienceHelper.ShowErrorAndRedirect("Torneo no encontrado.");
+            return;
+        }
+
+        _teamService.InscribirTorneo(idEquipo, idTorneo);
+
+        UserExperienceHelper.ShowSuccessAndRedirect($"¡Equipo '{equipoSeleccionado.Name}' inscrito al torneo '{torneoSeleccionado.Name}'!");
     }
 
     private void NotificacionTransferencia()
@@ -258,6 +284,8 @@ public class TeamUI
             .Color(Color.Orange1)
         );
 
+        var torneos = _tournamentService.ObtenerTodos();
+
         var equipos = _teamService.ObtenerTodos();
 
         if (equipos.Count == 0)
@@ -281,7 +309,46 @@ public class TeamUI
             return;
         }
 
-        // TODO: Mostrar torneos en los que está inscrito y permitir salida
-        UserExperienceHelper.ShowSuccessAndRedirect($"¡Equipo '{equipoSeleccionado.Name}' ha salido del torneo!");
+        // Obtener el equipo actualizado del repositorio para ver sus torneos
+        var equipoActualizado = _teamService.ObtenerPorId(idEquipo);
+        if (equipoActualizado == null)
+        {
+            UserExperienceHelper.ShowErrorAndRedirect("Error al obtener el equipo.");
+            return;
+        }
+
+        if (equipoActualizado.Tournaments.Count == 0)
+        {
+            UserExperienceHelper.ShowErrorAndRedirect("El equipo no está inscrito en ningún torneo.");
+            return;
+        }
+
+        MessageDisplayHelper.ShowInfo("Torneos en los que está inscrito:");
+        foreach (Tournament torneo in torneos)
+        {
+            if (equipoActualizado.Tournaments.Contains(torneo.Id))
+            {
+                AnsiConsole.MarkupLine($"[bold green]{torneo.Id} - {torneo.Name} ({torneo.StartDate:dd/MM/yyyy} - {torneo.EndDate:dd/MM/yyyy})[/]");
+            }
+        }
+
+        int idTorneo = ValidateInt.AskInt("ID del torneo: ");
+        Tournament? torneoSeleccionado = torneos.FirstOrDefault(t => t.Id == idTorneo);
+
+        if (torneoSeleccionado == null)
+        {
+            UserExperienceHelper.ShowErrorAndRedirect("Torneo no encontrado.");
+            return;
+        }
+
+        if (!equipoActualizado.Tournaments.Contains(idTorneo))
+        {
+            UserExperienceHelper.ShowErrorAndRedirect("El equipo no está inscrito en ese torneo.");
+            return;
+        }
+
+        _teamService.SalirTorneo(idEquipo, idTorneo);
+
+        UserExperienceHelper.ShowSuccessAndRedirect($"¡Equipo '{equipoSeleccionado.Name}' ha salido del torneo '{torneoSeleccionado.Name}'!");
     }
 } 

@@ -48,4 +48,14 @@ public class TeamService
         };
         _repo.Actualizar(team);
     }
+
+    public void InscribirTorneo(int teamId, int tournamentId)
+    {
+        _repo.InscribirTorneo(teamId, tournamentId);
+    }
+
+    public void SalirTorneo(int teamId, int tournamentId)
+    {
+        _repo.SalirTorneo(teamId, tournamentId);
+    }
 } 

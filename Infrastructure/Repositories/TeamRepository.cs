@@ -8,12 +8,13 @@ public class TeamRepository : ITeamRepository
 {
     public List<Team> ObtenerTodos()
     {
-        // Convertir de liga.Models.Team a liga.Domain.Entities.Team
+        // Convertir de Program.teams a liga.Domain.Entities.Team
         return Program.teams.Select(t => new Team
         {
             Id = t.Id,
             Name = t.Name,
-            City = t.City
+            City = t.City,
+            Tournaments = t.Tournaments ?? new List<int>()
             // Players, TechnicalStaffs, MedicalStaffs se agregarán cuando migremos esas entidades
         }).ToList();
     }
@@ -27,7 +28,8 @@ public class TeamRepository : ITeamRepository
         {
             Id = team.Id,
             Name = team.Name,
-            City = team.City
+            City = team.City,
+            Tournaments = team.Tournaments ?? new List<int>()
         };
     }
 
@@ -38,13 +40,9 @@ public class TeamRepository : ITeamRepository
             ? Program.teams.Max(t => t.Id) + 1 
             : 1;
 
-        // Convertir a liga.Models.Team y agregar a Program.teams
-        var newTeam = new liga.Models.Team(
-            nextId,  // ✅ ID AUTOINCREMENTAL
-            team.Name, 
-            team.City
-        );
-        Program.teams.Add(newTeam);
+        // Asignar ID y agregar a Program.teams
+        team.Id = nextId; // ✅ ID AUTOINCREMENTAL
+        Program.teams.Add(team);
     }
 
     public void Eliminar(int id)
@@ -63,6 +61,29 @@ public class TeamRepository : ITeamRepository
         {
             existingTeam.Name = team.Name;
             existingTeam.City = team.City;
+            existingTeam.Tournaments = team.Tournaments ?? new List<int>();
+        }
+    }
+
+    public void InscribirTorneo(int teamId, int tournamentId)
+    {
+        var team = Program.teams.FirstOrDefault(t => t.Id == teamId);
+        if (team != null)
+        {
+            if (team.Tournaments == null)
+                team.Tournaments = new List<int>();
+            
+            if (!team.Tournaments.Contains(tournamentId))
+                team.Tournaments.Add(tournamentId);
+        }
+    }
+
+    public void SalirTorneo(int teamId, int tournamentId)
+    {
+        var team = Program.teams.FirstOrDefault(t => t.Id == teamId);
+        if (team != null && team.Tournaments != null)
+        {
+            team.Tournaments.Remove(tournamentId);
         }
     }
 } 

@@ -24,7 +24,7 @@ public class MainMenu
         // Configurar la arquitectura hexagonal para equipos
         var teamRepository = factory.CrearTeamRepository();
         var teamService = new TeamService(teamRepository);
-        _teamUI = new TeamUI(teamService);
+        _teamUI = new TeamUI(teamService, tournamentService);
 
         while (true)
         {
@@ -65,17 +65,20 @@ public class MainMenu
                 case '2':
                     Console.Clear();
                     ConsoleUtils.ShowLoading("Redireccionando al menu de jugadores...");
-                    PlayerMenu.Show();
+                    AnsiConsole.MarkupLine("[yellow]Módulo de jugadores en desarrollo...[/]");
+                    ScreenPause.Pause();
                     break;
                 case '3':
                     Console.Clear();
                     ConsoleUtils.ShowLoading("Redireccionando al menu de transferencias...");
-                    TransferMenu.Show();
+                    AnsiConsole.MarkupLine("[yellow]Módulo de transferencias en desarrollo...[/]");
+                    ScreenPause.Pause();
                     break;
                 case '4':
                     Console.Clear();
                     ConsoleUtils.ShowLoading("Redireccionando al menu de estadisticas...");
-                    StatsMenu.Show();
+                    AnsiConsole.MarkupLine("[yellow]Módulo de estadísticas en desarrollo...[/]");
+                    ScreenPause.Pause();
                     break;
                 case '5':
                     Console.Clear();

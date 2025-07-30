@@ -5,7 +5,7 @@
 */
 
 using liga.Menus;
-using liga.Models;
+using liga.Domain.Entities;
 
 namespace liga;
 
