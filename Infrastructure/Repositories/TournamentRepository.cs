@@ -3,7 +3,7 @@ using liga.Domain.Ports;
 
 namespace liga.Infrastructure.Repositories;
 
-// Responsabilidad: Repositorio de torneos usando Program.tournaments
+// Responsabilidad: Repositorio específico de torneos implementando su propia lógica
 public class TournamentRepository : ITournamentRepository
 {
     public List<Tournament> ObtenerTodos()
@@ -17,6 +17,20 @@ public class TournamentRepository : ITournamentRepository
             EndDate = t.EndDate
             // Teams se agregará cuando migremos Team
         }).ToList();
+    }
+
+    public Tournament? ObtenerPorId(int id)
+    {
+        var tournament = Program.tournaments.FirstOrDefault(t => t.Id == id);
+        if (tournament == null) return null;
+
+        return new Tournament
+        {
+            Id = tournament.Id,
+            Name = tournament.Name,
+            StartDate = tournament.StartDate,
+            EndDate = tournament.EndDate
+        };
     }
 
     public void Crear(Tournament tournament)

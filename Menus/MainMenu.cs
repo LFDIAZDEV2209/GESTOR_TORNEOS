@@ -11,6 +11,7 @@ namespace liga.Menus;
 public class MainMenu
 {
     private static TournamentUI? _tournamentUI;
+    private static TeamUI? _teamUI;
 
     public static void Show()
     {
@@ -19,6 +20,11 @@ public class MainMenu
         var tournamentRepository = factory.CrearTournamentRepository();
         var tournamentService = new TournamentService(tournamentRepository);
         _tournamentUI = new TournamentUI(tournamentService);
+
+        // Configurar la arquitectura hexagonal para equipos
+        var teamRepository = factory.CrearTeamRepository();
+        var teamService = new TeamService(teamRepository);
+        _teamUI = new TeamUI(teamService);
 
         while (true)
         {
@@ -54,7 +60,7 @@ public class MainMenu
                 case '1':
                     Console.Clear();
                     ConsoleUtils.ShowLoading("Redireccionando al menu de equipos...");
-                    TeamMenu.Show();
+                    _teamUI?.MostrarMenu();
                     break;
                 case '2':
                     Console.Clear();

@@ -6,4 +6,5 @@ namespace liga.Domain.Factory;
 public interface IDbFactory
 {
     ITournamentRepository CrearTournamentRepository();
+    ITeamRepository CrearTeamRepository();
 } 
